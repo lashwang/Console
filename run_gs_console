@@ -1,0 +1,3 @@
+base=/system
+export CLASSPATH=$base/framework/gs_java_console.jar
+exec app_process $base/bin com.gs.console.main.Main "$@"

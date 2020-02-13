@@ -1,0 +1,19 @@
+java_library {
+    name: "gs_java_console",
+    dex_preopt: {
+        app_image: true,
+    },
+    srcs: [
+        "app/src/main/java/com/gs/console/main/*.java",
+    ],
+    static_libs: [
+        "framework",
+        "conscrypt",
+    ],
+}
+
+
+cc_prebuilt_binary {
+    name:"run_gs_console",
+    srcs: ["run_gs_console"],
+}
