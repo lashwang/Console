@@ -1,4 +1,4 @@
-package com.gs.console;
+package com.gs.console.main;
 
 
 import com.android.org.conscrypt.TrustedCertificateStore;
