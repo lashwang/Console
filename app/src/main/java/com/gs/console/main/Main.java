@@ -1,17 +1,21 @@
 package com.gs.console.main;
 
 
-import com.android.org.conscrypt.TrustedCertificateStore;
-
-import java.util.Set;
+import com.gs.core.security.GsSecurityManager;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args){
-        TrustedCertificateStore mStore = new TrustedCertificateStore();
-        Set<String> userList = mStore.userAliases();
-        System.out.println("User cert number:" + userList.size());
-        for(String alias:userList){
-            System.out.println("User alias:" + alias);
+        test_gs_security_api();
+    }
+
+
+    public static void test_gs_security_api(){
+        List<String> system_ca_list =  GsSecurityManager.instance().getSystemCaAliases();
+
+        System.out.println("all system ca list size:" + system_ca_list.size());
+        for(String alias:system_ca_list){
+            System.out.println(alias);
         }
     }
 }
