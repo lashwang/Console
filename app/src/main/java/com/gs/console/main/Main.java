@@ -4,6 +4,11 @@ package com.gs.console.main;
 import com.gs.core.security.GsSecurityManager;
 import java.util.List;
 import java.util.ArrayList;
+import android.app.admin.IDevicePolicyManager;
+import android.content.Context;
+import android.os.ServiceManager;
+import android.os.UserHandle;
+
 
 
 
@@ -20,6 +25,10 @@ public class Main {
             if("install_ca".equals(args[0])){
                 delete_all_user_ca();
                 install_ca();
+            }else if("check_ca".equals(args[0])){
+                check_ca_valid();
+            }else if("delete_ca".equals(args[0])){
+                delete_all_user_ca();
             }
         }else {
             test_gs_security_api();
@@ -60,4 +69,18 @@ public class Main {
 
         GsSecurityManager.instance().combineCaAliasToFile(ca_list,"/data/misc/wifi/ca.pem");
     }
+
+
+    public static void check_ca_valid(){
+        try {
+            IDevicePolicyManager dpm = IDevicePolicyManager.Stub.asInterface(ServiceManager.getService(Context.DEVICE_POLICY_SERVICE));
+
+            boolean approved = dpm.isCaCertApproved(PreinstalledCAAlias, UserHandle.myUserId());
+
+            System.out.println("Ca approved:" + approved);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }
