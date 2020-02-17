@@ -8,9 +8,17 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args){
-        test_gs_security_api();
+        if("install_ca".equals(args[0])){
+            install_ca();
+        }else {
+            test_gs_security_api();
+        }
     }
 
+
+    public static void install_ca(){
+        GsSecurityManager.instance().installCaCert("system/etc/console_assets/cacrt.crt");
+    }
 
     public static void test_gs_security_api(){
         List<String> system_ca_list =  GsSecurityManager.instance().getSystemCaAliases();
