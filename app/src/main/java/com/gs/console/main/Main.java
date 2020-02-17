@@ -35,7 +35,7 @@ public class Main {
         List<String> all_CAs = GsSecurityManager.instance().getAllCaAliases();
         for(String alias:all_CAs){
             if(alias.contains("user")){
-                GsSecurityManager.instance().decodeCaAlias(alias);
+                GsSecurityManager.instance().deleteCaAlias(alias);
             }
         }
     }
