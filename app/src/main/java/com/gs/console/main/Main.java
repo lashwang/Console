@@ -6,12 +6,11 @@ import java.util.List;
 import java.util.ArrayList;
 import android.app.admin.IDevicePolicyManager;
 import android.content.Context;
+import android.net.http.SslCertificate;
 import android.os.ServiceManager;
 import android.os.UserHandle;
-
-
-
-
+import android.security.Credentials;
+import android.security.KeyStore;
 
 
 public class Main {
@@ -29,6 +28,8 @@ public class Main {
                 check_ca_valid();
             }else if("delete_ca".equals(args[0])){
                 delete_all_user_ca();
+            }else if("check_wifi_ca".equals(args[0])){
+                check_wifi_ca();
             }
         }else {
             test_gs_security_api();
@@ -81,6 +82,20 @@ public class Main {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+
+    public static void check_wifi_ca(){
+        String[] certs = KeyStore.getInstance().list(Credentials.CA_CERTIFICATE, android.os.Process.WIFI_UID);
+
+        for (String cert : certs) {
+            System.out.println("ca alias" + cert);
+            SslCertificate certfile = GsSecurityManager.instance().decodeCaAlias(cert);
+            String caName = certfile.getIssuedTo().getCName();
+
+            System.out.println("ca:" + caName);
+        }
+
     }
 
 }
