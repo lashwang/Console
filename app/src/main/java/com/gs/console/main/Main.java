@@ -30,6 +30,8 @@ public class Main {
                 delete_all_user_ca();
             }else if("check_wifi_ca".equals(args[0])){
                 check_wifi_ca();
+            }else if("decode_ca".equals(args[0])){
+                decode_ca(args[1]);
             }
         }else {
             test_gs_security_api();
@@ -95,6 +97,14 @@ public class Main {
 
             System.out.println("ca:" + caName);
         }
+
+    }
+
+
+    public static void decode_ca(String alias){
+        List<String> CAs = new ArrayList<>();
+        CAs.add(alias);
+        GsSecurityManager.instance().combineCaAliasToFile(CAs,"/data/misc/ca.pem");
 
     }
 
